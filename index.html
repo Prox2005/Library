@@ -15,6 +15,24 @@
     <title>Library</title>
   </head>
   <body>
+    <div class="overlay"></div>
+    <form class="form">
+      <h2 class="form__name">New Book</h2>
+      <label for="title">Title</label>
+      <input id="title" class="input form__title" type="text" name="title" />
+
+      <label for="author">Author</label>
+      <input id="author" class="input form__author" type="text" name="author" />
+
+      <label for="pages">Pages</label>
+      <input id="pages" class="input form__pages" type="number" name="pages" />
+      <div class="read">
+        <label class="read__label" for="read">Have you read it?</label>
+        <input id="read" class="input read__input" type="checkbox" name="read" />
+      </div>
+      <button type="button" class="button form__submit">Submit</button>
+    </form>
+
     <header class="header">
       <section class="header__img-container">
         <img class="header__logo" src="./assets/logo.svg" alt="logo" />
@@ -28,47 +46,16 @@
     <main class="library">
       <button class="library__add">+ add book</button>
 
-      <section class="library__books">
-        <section class="library__book">
-          <h2 class="book-name">"Book"</h2>
-          <h2 class="book-author">"Author "</h2>
-          <h2 class="book-pages">"Pages "</h2>
-          <button class="button button__read">Read</button>
-          <button class="button button__remove">Remove</button>
-        </section>
-        <section class="library__book">
-          <h2 class="book-name">"Book"</h2>
-          <h2 class="book-author">"Author "</h2>
-          <h2 class="book-pages">"Pages "</h2>
-          <button class="button button__read">Read</button>
-          <button class="button button__remove">Remove</button>
-        </section>
-      </section>
-
-      <form action="#" class="form">
-        <h2 class="form__name">New Book</h2>
-        <label for="title">Title</label>
-        <input id="title" class="input form__title" type="text" name="title" />
-
-        <label for="author">Author</label>
-        <input id="author" class="input form__author" type="text" name="author" />
-
-        <label for="pages">Pages</label>
-        <input id="pages" class="input form__pages" type="text" name="pages" />
-        <div class="read">
-          <label class="read__label" for="read">Have you read it?</label>
-          <input id="read" class="input read__input" type="checkbox" name="read" />
-        </div>
-
-        <button class="button form__submit">Submit</button>
-      </form>
+      <section class="library__books"></section>
     </main>
 
     <footer class="footer">
-      <p class="footer__description">Copyright © 2022 Prox</p>
+      <p class="footer__description">Copyright © 2022 Renato Probst</p>
       <a class="footer__github" target="_blank" href="https://github.com/Prox2005/Library"
         ><img class="footer__img" src="./assets/github.ico"
       /></a>
     </footer>
+
+    <script src="./main.js"></script>
   </body>
 </html>

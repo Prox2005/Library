@@ -1,0 +1,117 @@
+"use strict";
+
+// books will be stored here
+let myLibrary = [];
+
+// will create books
+class Book {
+  constructor(title, author, pages, readState) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.readState = readState;
+  }
+}
+
+// will append the book within the page
+class AppendBook extends Book {
+  constructor(title, author, pages, readState) {
+    super(title, author, pages, readState);
+  }
+  appendBook() {
+    const lybraryBooks = document.querySelector(".library__books");
+
+    const libraryBook = document.createElement("section");
+    libraryBook.classList.add("library__book");
+
+    const bookTitle = document.createElement("h2");
+    bookTitle.textContent = this.title;
+
+    const bookAuthor = document.createElement("h2");
+    bookAuthor.textContent = this.author;
+
+    const bookPages = document.createElement("h2");
+    bookPages.textContent = this.pages;
+
+    const bookReadState = document.createElement("button");
+    if (this.readState === true) {
+      this.readState = "Read";
+      bookReadState.style.background = "#83f084";
+    } else {
+      this.readState = "Not Read";
+      bookReadState.style.background = "#f95959";
+    }
+    bookReadState.textContent = this.readState;
+    bookReadState.classList.add("button");
+
+    const removeButton = document.createElement("button");
+    removeButton.textContent = "Remove";
+    removeButton.classList.add("button", "button__remove");
+
+    lybraryBooks.appendChild(libraryBook);
+    libraryBook.appendChild(bookTitle);
+    libraryBook.appendChild(bookAuthor);
+    libraryBook.appendChild(bookPages);
+    libraryBook.appendChild(bookReadState);
+    libraryBook.appendChild(removeButton);
+  }
+}
+
+class Form {
+  constructor() {}
+
+  showForm() {
+    const addButton = document.querySelector(".library__add");
+
+    addButton.addEventListener("click", function () {
+      const overlay = document.querySelector(".overlay");
+      const form = document.querySelector(".form");
+
+      overlay.style.visibility = "visible";
+      form.style.visibility = "visible";
+    });
+    this.closeForm();
+    this.data();
+  }
+
+  closeForm() {
+    const overlay = document.querySelector(".overlay");
+    const form = document.querySelector(".form");
+    const inputs = document.querySelectorAll(".input");
+
+    overlay.addEventListener("click", function () {
+      overlay.style.visibility = "hidden";
+      form.style.visibility = "hidden";
+      inputs.forEach((input) => {
+        input.value = "";
+      });
+    });
+  }
+
+  data() {
+    const submitButton = document.querySelector(".form__submit");
+    const inputs = document.querySelectorAll(".input");
+    const overlay = document.querySelector(".overlay");
+    const form = document.querySelector(".form");
+
+    submitButton.addEventListener("click", function () {
+      let values = [];
+      inputs.forEach((input) => {
+        values.push(input.value);
+      });
+      const book = new AppendBook(values[0], values[1], values[2], inputs[3].checked).appendBook();
+
+      overlay.style.visibility = "hidden";
+      form.style.visibility = "hidden";
+      inputs.forEach((input) => {
+        input.value = "";
+      });
+    });
+  }
+}
+
+// will add books into the array and then calling the appendBook method
+function addBookToLibrary() {
+  const showForm = new Form().showForm();
+}
+addBookToLibrary();

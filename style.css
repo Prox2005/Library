@@ -5,7 +5,7 @@
 
 html,
 body {
-  height: 100vh;
+  min-height: 100vh;
 }
 
 body {
@@ -54,7 +54,7 @@ body {
 
 .library__books {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   width: 100%;
   gap: 100px;
 }
@@ -82,19 +82,34 @@ body {
   background-color: #f95959;
 }
 /* form */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  visibility: hidden;
+}
 .form {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 10;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  height: 400px;
-  width: 50%;
+  height: 350px;
+  width: 350px;
   padding: 10px 30px;
   border-radius: 10px;
   color: #233142;
   background-color: #596e79;
-  display: none;
+  visibility: hidden;
 }
+
 .form__name {
   color: white;
 }
@@ -113,7 +128,6 @@ body {
   display: flex;
   justify-content: center;
   font-size: 1.4rem;
-  background: #f0ece2;
 }
 
 .footer__github {
