@@ -18,7 +18,7 @@ class AppendBook extends Book {
   constructor(title, author, pages, readState) {
     super(title, author, pages, readState);
   }
-  appendBook() {
+  appendBook(book) {
     const lybraryBooks = document.querySelector(".library__books");
 
     const libraryBook = document.createElement("section");
@@ -54,6 +54,25 @@ class AppendBook extends Book {
     libraryBook.appendChild(bookPages);
     libraryBook.appendChild(bookReadState);
     libraryBook.appendChild(removeButton);
+    const removeBook = new RemoveBook().removeBook(book);
+  }
+}
+
+class RemoveBook {
+  constructor() {}
+  removeBook(book) {
+    let indexNumber = myLibrary.indexOf(book);
+    const removeButton = document.querySelectorAll(".button__remove")[indexNumber];
+    const libraryBook = document.querySelectorAll(".library__book")[indexNumber];
+    const library = document.querySelector(".library__books");
+    libraryBook.dataset.book = indexNumber;
+    removeButton.dataset.book = indexNumber;
+    removeButton.addEventListener("click", function () {
+      console.log(indexNumber, libraryBook.dataset.book);
+      indexNumber = myLibrary.indexOf(book);
+      library.removeChild(libraryBook);
+      myLibrary.splice(indexNumber, 1);
+    });
   }
 }
 
@@ -99,7 +118,10 @@ class Form {
       inputs.forEach((input) => {
         values.push(input.value);
       });
-      const book = new AppendBook(values[0], values[1], values[2], inputs[3].checked).appendBook();
+      const book = new AppendBook(values[0], values[1], values[2], inputs[3].checked);
+      myLibrary.push(book);
+
+      book.appendBook(book);
 
       overlay.style.visibility = "hidden";
       form.style.visibility = "hidden";
