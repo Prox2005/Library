@@ -14,7 +14,7 @@ class Book {
 }
 
 // will append the book within the page
-class AppendBook extends Book {
+class UI extends Book {
   constructor(title, author, pages, readState) {
     super(title, author, pages, readState);
   }
@@ -42,7 +42,7 @@ class AppendBook extends Book {
       bookReadState.style.background = "#f95959";
     }
     bookReadState.textContent = this.readState;
-    bookReadState.classList.add("button");
+    bookReadState.classList.add("button", "button__status");
 
     const removeButton = document.createElement("button");
     removeButton.textContent = "Remove";
@@ -54,12 +54,12 @@ class AppendBook extends Book {
     libraryBook.appendChild(bookPages);
     libraryBook.appendChild(bookReadState);
     libraryBook.appendChild(removeButton);
-    const removeBook = new RemoveBook().removeBook(book);
+    const removeBook = new Features().removeBook(book);
+    const toggleBook = new Features().toggleStatus(book);
   }
 }
 
-class RemoveBook {
-  constructor() {}
+class Features {
   removeBook(book) {
     let indexNumber = myLibrary.indexOf(book);
     const removeButton = document.querySelectorAll(".button__remove")[indexNumber];
@@ -74,11 +74,25 @@ class RemoveBook {
       myLibrary.splice(indexNumber, 1);
     });
   }
+
+  toggleStatus(book) {
+    let indexNumber = myLibrary.indexOf(book);
+    const bookReadState = document.querySelectorAll(".button__status")[indexNumber];
+    bookReadState.dataset.book = indexNumber;
+
+    bookReadState.addEventListener("click", function () {
+      if (bookReadState.textContent === "Not Read") {
+        bookReadState.textContent = "Read";
+        bookReadState.style.background = "#83f084";
+      } else if (bookReadState.textContent === "Read") {
+        bookReadState.textContent = "Not Read";
+        bookReadState.style.background = "#f95959";
+      }
+    });
+  }
 }
 
 class Form {
-  constructor() {}
-
   showForm() {
     const addButton = document.querySelector(".library__add");
 
@@ -118,7 +132,7 @@ class Form {
       inputs.forEach((input) => {
         values.push(input.value);
       });
-      const book = new AppendBook(values[0], values[1], values[2], inputs[3].checked);
+      const book = new UI(values[0], values[1], values[2], inputs[3].checked);
       myLibrary.push(book);
 
       book.appendBook(book);
